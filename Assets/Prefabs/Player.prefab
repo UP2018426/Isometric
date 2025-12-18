@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5801545079728702251}
   - component: {fileID: 4352865040999765243}
+  - component: {fileID: 5010475493343385696}
   - component: {fileID: 4492131802965476773}
   - component: {fileID: 8945312118166105790}
   m_Layer: 0
@@ -57,6 +58,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!54 &5010475493343385696
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771799703282377110}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!65 &4492131802965476773
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72,7 +100,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -91,7 +119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  meleeCollider: {fileID: 0}
 --- !u!1 &1357388871499162172
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +269,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  meleeCollider: {fileID: 0}
 --- !u!1 &2835000580829961063
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +338,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5dc8cd87059792746b09fea7e6dc8c05, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -376,12 +402,7 @@ MonoBehaviour:
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   meleeAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  meleeItem: {fileID: 7247659141962389467}
-  meleeStartPosition: {x: 0.429, y: -0.007872105, z: 0.916}
-  meleeEndPosition: {x: -1.036, y: -0.007872105, z: 1.005}
-  meleeStartRotation: {x: 0, y: 22.7465, z: 0}
-  meleeEndRotation: {x: 0, y: 329.72238, z: 0}
-  isMeleeAttacking: 0
+  meleeItem: {fileID: 5801545079728702251}
   meleeSpeed: 1.5
 --- !u!1 &7917582217676711897
 GameObject:

@@ -3,7 +3,7 @@ using UnityEngine;
 public class MeleeObject : MonoBehaviour
 {
     [SerializeField] private int damage;
-    public Collider meleeCollider;
+    private Collider meleeCollider;
     private bool isAttacking;
     private Animator animator;
     private float swingTime;
@@ -15,7 +15,7 @@ public class MeleeObject : MonoBehaviour
         {
             if (other.CompareTag("Enemy"))
             {
-                Debug.Log("The enemy " + other.name + " was hit by " + transform.name);
+                Debug.Log("The enemy: " + other.name + ", was hit by: " + transform.name);
                 EnemyController enemy = other.transform.GetComponent<EnemyController>();
                 enemy.TakeDamage(damage);
             }

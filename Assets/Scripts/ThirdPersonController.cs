@@ -8,7 +8,6 @@ public class ThirdPersonController : MonoBehaviour
     [Range(0.01f, 0.1f)]
     public float rotationSpeed = 0.06f;
 
-    // TASK: What variable type goes here?
     public float playerSpeed = 5.0f;
     private float jumpHeight = 1.5f; 
     [SerializeField] private float gravityValue = Physics.gravity.y;
@@ -27,8 +26,6 @@ public class ThirdPersonController : MonoBehaviour
     [Header("Melee Item")]
     [SerializeField] private Transform meleeItem;
     private MeleeObject melee;
-    [SerializeField] private Vector3 meleeStartPosition, meleeEndPosition;
-    [SerializeField] private Vector3 meleeStartRotation, meleeEndRotation;
     [SerializeField] private float meleeSpeed;
     private float meleeTime;
 
@@ -50,10 +47,6 @@ public class ThirdPersonController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        // Reset the object of the melee weapon
-        meleeItem.localPosition = meleeStartPosition;
-        meleeItem.localEulerAngles = meleeStartRotation;
 
         if (meleeItem != null)
         {
@@ -125,31 +118,5 @@ public class ThirdPersonController : MonoBehaviour
         {
             melee.OnAttackBegin();
         }
-
-        //UpdateMeleeItemPosition();
     }
-
-    /*void UpdateMeleeItemPosition()
-    {
-        meleeTime = Mathf.Clamp01(meleeTime);
-
-        if (isMeleeAttacking == true)
-        {
-            meleeTime += Time.deltaTime * meleeSpeed;
-            meleeItem.localPosition = Vector3.Lerp(meleeItem.localPosition, meleeEndPosition, meleeTime);
-            meleeItem.localRotation = Quaternion.Slerp(Quaternion.Euler(meleeItem.localEulerAngles), Quaternion.Euler(meleeEndRotation), meleeTime);
-
-
-            if(meleeTime >= 1f)
-            {
-                melee.OnAttackEnd(); 
-            }
-        }
-        else
-        {
-            meleeTime += Time.deltaTime * -meleeSpeed;
-            meleeItem.localPosition = Vector3.Lerp(meleeItem.localPosition, meleeStartPosition, meleeTime);
-            meleeItem.localRotation = Quaternion.Slerp(Quaternion.Euler(meleeItem.localEulerAngles), Quaternion.Euler(meleeStartRotation), meleeTime);
-        }
-    }*/
 }
