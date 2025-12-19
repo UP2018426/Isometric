@@ -234,7 +234,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
-  closestDistance: 1.71
+  detectionRange: 8
+  closestDistance: 2
 --- !u!195 &5982784997073319531
 NavMeshAgent:
   m_ObjectHideFlags: 0

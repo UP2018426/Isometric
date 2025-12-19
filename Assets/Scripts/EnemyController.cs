@@ -4,6 +4,7 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     public int health;
+    public float detectionRange;
     [SerializeField] private float closestDistance;
     private NavMeshAgent agent;
 
@@ -19,8 +20,14 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.destination = player.position;
-        if ((transform.position - player.transform.position).magnitude > closestDistance)
+        float distanceToPlayer = (transform.position - player.transform.position).magnitude;
+
+        if (distanceToPlayer < detectionRange)
+        {
+            agent.destination = player.position;
+        }
+        
+        if (distanceToPlayer > closestDistance)
         {
             agent.isStopped = false;
         }
@@ -39,5 +46,11 @@ public class EnemyController : MonoBehaviour
             Debug.Log("Enemy is dead");
             Destroy(this.gameObject, 0.2f);
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
 }
