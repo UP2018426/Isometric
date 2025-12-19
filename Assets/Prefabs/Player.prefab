@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 7107287003832370402}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -405,7 +405,6 @@ MonoBehaviour:
   focusAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   meleeItem: {fileID: 5801545079728702251}
   meleeSpeed: 1.5
-  targetObject: {fileID: 0}
 --- !u!1 &7917582217676711897
 GameObject:
   m_ObjectHideFlags: 0
