@@ -22,12 +22,18 @@ public class ThirdPersonController : MonoBehaviour
     public InputActionReference moveAction;
     public InputActionReference jumpAction;
     public InputActionReference meleeAction;
+    public InputActionReference focusAction;
 
     [Header("Melee Item")]
     [SerializeField] private Transform meleeItem;
     private MeleeObject melee;
     [SerializeField] private float meleeSpeed;
     private float meleeTime;
+
+    [Header("Targeting")] 
+    private GameObject[] enemies;
+
+    private Transform targetObject;
 
     private void Awake()
     {
@@ -41,6 +47,9 @@ public class ThirdPersonController : MonoBehaviour
             Debug.LogWarning("A Character Controller component was not found on this object. A default Character Controller was added");
             controller = gameObject.AddComponent<CharacterController>();
         }
+        
+        // Find all enemies
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
     void Start()
@@ -68,6 +77,7 @@ public class ThirdPersonController : MonoBehaviour
         moveAction.action.Enable();
         jumpAction.action.Enable();
         meleeAction.action.Enable();
+        focusAction.action.Enable();
     }
 
     private void OnDisable()
@@ -75,6 +85,7 @@ public class ThirdPersonController : MonoBehaviour
         moveAction.action.Disable();
         jumpAction.action.Disable();
         meleeAction.action.Disable();
+        focusAction.action.Disable();
     }
 
     void Update()
@@ -91,14 +102,31 @@ public class ThirdPersonController : MonoBehaviour
         Vector3 move = new Vector3(input.x, 0, input.y);
         move = Vector3.ClampMagnitude(move, 1f);
 
-        Vector3 targetDirection = Vector3.zero;
+        Vector3 moveDirection = cameraTransform.TransformDirection(move);
+        moveDirection.y = 0f; // Ignore Y-Axis
+        moveDirection.Normalize();
 
-        if (move != Vector3.zero)
+        if (focusAction.action.triggered)
         {
-            targetDirection = cameraTransform.TransformDirection(move); // Find look direction based on "move" in the local-space of cameraTransform
-            targetDirection.y = 0f; // Ignore Y-Axis
+            targetObject = FindNearestEnemy();
+        }
+        else if (focusAction.action.WasReleasedThisFrame())
+        {
+            targetObject = null;
+        }
 
-            transform.forward = Vector3.Slerp(transform.forward, targetDirection, rotationSpeed);
+        if (focusAction.action.inProgress && targetObject != null)
+        {
+            Vector3 lookDirection = targetObject.position - transform.position;
+            lookDirection.y = 0f;
+
+            Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed);
+        }
+        else if (move != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed);
         }
 
         // Jump
@@ -111,12 +139,37 @@ public class ThirdPersonController : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
 
         // Combine horizontal and vertical movement
-        Vector3 finalMove = (targetDirection * playerSpeed) + (playerVelocity.y * Vector3.up);
+        Vector3 finalMove = (moveDirection * playerSpeed) + (playerVelocity.y * Vector3.up);
         controller.Move(finalMove * Time.deltaTime);
 
         if (meleeAction.action.triggered)
         {
             melee.OnAttackBegin();
         }
+    }
+
+    Transform FindNearestEnemy()
+    {
+        // Find all enemies
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        
+        if (enemies.Length <= 0)
+        {
+            Debug.LogWarning("There are no enemies!");
+            return null;
+        }
+        float closestDistance = Mathf.Infinity;
+        Transform closestTransform = null;
+
+        foreach (GameObject enemy in enemies)
+        {
+            if ((enemy.transform.position - transform.position).magnitude < closestDistance)
+            {
+                closestDistance = (enemy.transform.position - transform.position).magnitude;
+                closestTransform = enemy.transform;
+            }
+        }
+
+        return closestTransform;
     }
 }
