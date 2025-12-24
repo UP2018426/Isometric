@@ -106,7 +106,7 @@ public class ThirdPersonController : MonoBehaviour
         moveDirection.y = 0f; // Ignore Y-Axis
         moveDirection.Normalize();
 
-        if (focusAction.action.triggered)
+        if (focusAction.action.WasPressedThisFrame())
         {
             targetObject = FindNearestEnemy();
         }
@@ -115,8 +115,18 @@ public class ThirdPersonController : MonoBehaviour
             targetObject = null;
         }
 
+        if(focusAction.action.inProgress && targetObject == null)
+        {
+            targetObject = FindNearestEnemy();
+        }
+
         if (focusAction.action.inProgress && targetObject != null)
         {
+            if (targetObject == null)
+            {
+                targetObject = FindNearestEnemy();
+            }
+
             Vector3 lookDirection = targetObject.position - transform.position;
             lookDirection.y = 0f;
 
