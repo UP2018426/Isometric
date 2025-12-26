@@ -140,10 +140,10 @@ public class ThirdPersonController : MonoBehaviour
         }
 
         // Jump
-        if (jumpAction.action.triggered && isPlayerGrounded)
-        {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravityValue);
-        }
+        //if (jumpAction.action.triggered && isPlayerGrounded)
+        //{
+        //    playerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravityValue);
+        //}
 
         // Apply gravity
         playerVelocity.y += gravityValue * Time.deltaTime;
