@@ -2379,7 +2379,7 @@ PrefabInstance:
       objectReference: {fileID: 1491690947}
     - target: {fileID: 102864605651472243, guid: f020cd00dbd16254588ab312f28ffd97, type: 3}
       propertyPath: m_VersionIndex
-      value: 9988
+      value: 9991
       objectReference: {fileID: 0}
     - target: {fileID: 441176868954717552, guid: f020cd00dbd16254588ab312f28ffd97, type: 3}
       propertyPath: damage

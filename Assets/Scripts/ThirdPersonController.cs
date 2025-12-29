@@ -33,7 +33,7 @@ public class ThirdPersonController : MonoBehaviour
     [Header("Targeting")] 
     private GameObject[] enemies;
 
-    private Transform targetObject;
+    public Transform targetObject;
 
     private void Awake()
     {

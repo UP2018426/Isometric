@@ -256,6 +256,7 @@ MonoBehaviour:
   focusAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   meleeItem: {fileID: 5801545079728702251}
   meleeSpeed: 4.15
+  targetObject: {fileID: 0}
 --- !u!114 &2445861063347660126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 3643573671422957058, guid: 4368b4a7b15cc4d41ac93459c8c864d0, type: 3}
   shootingPoint: {fileID: 6878236211306767256}
-  shootForce: 10
+  shootForce: 25
   shootAction: {fileID: 7040659881675835329, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &4818763845997832301
 GameObject:

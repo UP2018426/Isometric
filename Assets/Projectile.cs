@@ -15,10 +15,8 @@ public class Projectile : MonoBehaviour
     {
         if (!other.CompareTag("Player"))
         {
-            Debug.Log("is not player");
             if (other.CompareTag("Enemy"))
             {
-                Debug.Log("is enemy");
                 EnemyController enemy = other.transform.GetComponent<EnemyController>();
 
                 enemy.TakeDamage(damage);

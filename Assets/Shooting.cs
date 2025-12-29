@@ -5,6 +5,7 @@ public class Shooting : MonoBehaviour
 {
     [SerializeField] GameObject projectile;
     [SerializeField] Transform shootingPoint;
+    private ThirdPersonController tpsController;
 
     [SerializeField] float shootForce;
 
@@ -13,7 +14,7 @@ public class Shooting : MonoBehaviour
 
     void Start()
     {
-        
+        tpsController = GetComponent<ThirdPersonController>();
     }
 
     void Update()
@@ -24,7 +25,14 @@ public class Shooting : MonoBehaviour
 
             Rigidbody projectileRigidbody = shootingProjectile.GetComponent<Rigidbody>();
 
-            projectileRigidbody.AddForce(shootingPoint.forward * shootForce, ForceMode.Impulse);
+            if (tpsController.targetObject != null)
+            {
+                projectileRigidbody.AddForce((tpsController.targetObject.position - shootingPoint.position).normalized * shootForce, ForceMode.Impulse);
+            }   
+            else
+            {
+                projectileRigidbody.AddForce(shootingPoint.forward * shootForce, ForceMode.Impulse);
+            }
         }
     }
 
