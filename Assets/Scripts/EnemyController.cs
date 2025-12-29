@@ -5,7 +5,6 @@ public class EnemyController : MonoBehaviour
 {
     public int health;
     public float detectionRange;
-    [SerializeField] private float closestDistance;
     private NavMeshAgent agent;
 
     private Transform player;
@@ -25,15 +24,6 @@ public class EnemyController : MonoBehaviour
         if (distanceToPlayer < detectionRange)
         {
             agent.destination = player.position;
-        }
-        
-        if (distanceToPlayer > closestDistance)
-        {
-            agent.isStopped = false;
-        }
-        else
-        {
-            agent.isStopped = true;
         }
     }
 

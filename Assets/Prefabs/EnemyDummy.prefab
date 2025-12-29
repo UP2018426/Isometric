@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 41adb347b02befb4c941b008cd47589e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 6282412267999067321}
   - component: {fileID: 5403196644542932268}
   - component: {fileID: 5982784997073319531}
+  - component: {fileID: 7677145923415002593}
   m_Layer: 7
   m_Name: EnemyDummy
   m_TagString: Enemy
@@ -176,7 +177,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41adb347b02befb4c941b008cd47589e, type: 2}
+  - {fileID: 2100000, guid: f0a9a271d26a47941b8fc102cd492a9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -250,7 +251,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -258,3 +259,18 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7677145923415002593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8687750325263800576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc24b4e6a37123a498e10d1f9204ba65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windupSpeed: 1
+  preparingToAttack: 0
+  telegraphColour: {r: 1, g: 0, b: 0, a: 0}
