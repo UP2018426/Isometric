@@ -407,7 +407,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 25
+  field of view: 45.2
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1114,7 +1114,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -2166,7 +2166,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 25
+    FieldOfView: 45.2
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -2379,15 +2379,11 @@ PrefabInstance:
       objectReference: {fileID: 1491690947}
     - target: {fileID: 102864605651472243, guid: f020cd00dbd16254588ab312f28ffd97, type: 3}
       propertyPath: m_VersionIndex
-      value: 9991
+      value: 9997
       objectReference: {fileID: 0}
     - target: {fileID: 441176868954717552, guid: f020cd00dbd16254588ab312f28ffd97, type: 3}
       propertyPath: damage
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2445861063347660126, guid: f020cd00dbd16254588ab312f28ffd97, type: 3}
-      propertyPath: shootForce
-      value: 25.08
       objectReference: {fileID: 0}
     - target: {fileID: 2445861063347660126, guid: f020cd00dbd16254588ab312f28ffd97, type: 3}
       propertyPath: shootAction
@@ -2549,11 +2545,11 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 567161607}
+  - {fileID: 2082008455}
+  - {fileID: 408539255}
   - {fileID: 262338106379403206}
   - {fileID: 794832650145283512}
   - {fileID: 1853222973}
   - {fileID: 1213706496}
-  - {fileID: 2082008455}
-  - {fileID: 408539255}
   - {fileID: 1221721591}
   - {fileID: 318800023}

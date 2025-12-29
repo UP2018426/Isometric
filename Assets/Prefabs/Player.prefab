@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5010475493343385696}
   - component: {fileID: 4492131802965476773}
   - component: {fileID: 8945312118166105790}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MeleeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 277614440069248283}
   - component: {fileID: 7107287003832370402}
   - component: {fileID: 2445861063347660126}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6878236211306767256}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShootingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 2816115679530868318}
   - component: {fileID: 3316482689728176217}
   - component: {fileID: 5890046983587051585}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 3205607019935344087}
   - component: {fileID: 3039847158222855235}
   - component: {fileID: 4447982081651237470}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}

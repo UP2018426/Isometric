@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4259690084856343730}
   - component: {fileID: 613900788305065619}
   - component: {fileID: 9088307198136446068}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 6282412267999067321}
   - component: {fileID: 5403196644542932268}
   - component: {fileID: 5982784997073319531}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyDummy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
