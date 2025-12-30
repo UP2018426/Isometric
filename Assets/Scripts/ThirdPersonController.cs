@@ -9,7 +9,7 @@ public class ThirdPersonController : MonoBehaviour
     public float rotationSpeed = 0.06f;
 
     public float playerSpeed = 5.0f;
-    private float jumpHeight = 1.5f; 
+    //private float jumpHeight = 1.5f; 
     [SerializeField] private float gravityValue = Physics.gravity.y;
 
     private bool isPlayerGrounded;
@@ -17,6 +17,9 @@ public class ThirdPersonController : MonoBehaviour
     public Transform cameraTransform;
     private CharacterController controller;
     private Vector3 playerVelocity;
+
+    [Header("Player Stats")]
+    [SerializeField] private int currentHealth;
 
     [Header("Input Actions")]
     public InputActionReference moveAction;
@@ -28,7 +31,6 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private Transform meleeItem;
     private MeleeObject melee;
     [SerializeField] private float meleeSpeed;
-    private float meleeTime;
 
     [Header("Targeting")] 
     private GameObject[] enemies;
@@ -181,5 +183,21 @@ public class ThirdPersonController : MonoBehaviour
         }
 
         return closestTransform;
+    }
+
+    public void TakeDamage(int damageTaken)
+    {
+        currentHealth -= damageTaken;
+
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
+    }
+
+    void Death()
+    {
+        // Destory the player in here, reset the level, or whatever...
+        Debug.Log("Player Died!");
     }
 }

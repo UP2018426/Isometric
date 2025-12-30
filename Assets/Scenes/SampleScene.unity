@@ -1575,11 +1575,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efe934b5b80d01943b7ebc52fb398803, type: 3}
---- !u!4 &1131659097 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1698105795123980814, guid: 6c3028931ceaada428be8d072c3c6151, type: 3}
-  m_PrefabInstance: {fileID: 794832650145283512}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1213706496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3120,16 +3115,12 @@ PrefabInstance:
       objectReference: {fileID: 1491690947}
     - target: {fileID: 102864605651472243, guid: f020cd00dbd16254588ab312f28ffd97, type: 3}
       propertyPath: m_VersionIndex
-      value: 9997
+      value: 10006
       objectReference: {fileID: 0}
     - target: {fileID: 441176868954717552, guid: f020cd00dbd16254588ab312f28ffd97, type: 3}
       propertyPath: damage
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2445861063347660126, guid: f020cd00dbd16254588ab312f28ffd97, type: 3}
-      propertyPath: shootAction
-      value: 
-      objectReference: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     - target: {fileID: 2835000580829961063, guid: f020cd00dbd16254588ab312f28ffd97, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3194,10 +3185,6 @@ PrefabInstance:
       propertyPath: meleeDamage
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7107287003832370402, guid: f020cd00dbd16254588ab312f28ffd97, type: 3}
-      propertyPath: targetObject
-      value: 
-      objectReference: {fileID: 1131659097}
     - target: {fileID: 7107287003832370402, guid: f020cd00dbd16254588ab312f28ffd97, type: 3}
       propertyPath: cameraTransform
       value: 

@@ -122,7 +122,6 @@ GameObject:
   - component: {fileID: 6282412267999067321}
   - component: {fileID: 5403196644542932268}
   - component: {fileID: 5982784997073319531}
-  - component: {fileID: 7677145923415002593}
   m_Layer: 7
   m_Name: EnemyDummy
   m_TagString: Enemy
@@ -236,7 +235,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   detectionRange: 8
-  closestDistance: 2
+  attackDamage: 2
+  attackRange: 2
+  maxAttackAngle: 0.08
+  windupSpeed: 3
+  attackCooldownTime: 1
+  telegraphColour: {r: 1, g: 0, b: 0, a: 0}
 --- !u!195 &5982784997073319531
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -250,8 +254,8 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_AngularSpeed: 720
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -259,18 +263,3 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7677145923415002593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8687750325263800576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc24b4e6a37123a498e10d1f9204ba65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  windupSpeed: 1
-  preparingToAttack: 0
-  telegraphColour: {r: 1, g: 0, b: 0, a: 0}
