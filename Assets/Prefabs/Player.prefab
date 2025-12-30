@@ -248,6 +248,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 0.06
   playerSpeed: 5
+  isDashing: 0
+  playerDashSpeed: 8
+  playerDashLength: 0.4
   gravityValue: -9.81
   cameraTransform: {fileID: 0}
   currentHealth: 10
@@ -255,6 +258,7 @@ MonoBehaviour:
   jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   meleeAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   focusAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  dashAction: {fileID: -416885939997619757, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   meleeItem: {fileID: 5801545079728702251}
   meleeSpeed: 4.15
   targetObject: {fileID: 0}

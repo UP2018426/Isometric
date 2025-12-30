@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,6 +10,10 @@ public class ThirdPersonController : MonoBehaviour
     public float rotationSpeed = 0.06f;
 
     public float playerSpeed = 5.0f;
+    [SerializeField] bool isDashing;
+    public float playerDashSpeed = 8.0f;
+    public float playerDashLength = 1.0f;
+    private Vector3 dashDirection;
     //private float jumpHeight = 1.5f; 
     [SerializeField] private float gravityValue = Physics.gravity.y;
 
@@ -26,6 +31,7 @@ public class ThirdPersonController : MonoBehaviour
     public InputActionReference jumpAction;
     public InputActionReference meleeAction;
     public InputActionReference focusAction;
+    public InputActionReference dashAction;
 
     [Header("Melee Item")]
     [SerializeField] private Transform meleeItem;
@@ -80,6 +86,7 @@ public class ThirdPersonController : MonoBehaviour
         jumpAction.action.Enable();
         meleeAction.action.Enable();
         focusAction.action.Enable();
+        dashAction.action.Enable();
     }
 
     private void OnDisable()
@@ -88,6 +95,7 @@ public class ThirdPersonController : MonoBehaviour
         jumpAction.action.Disable();
         meleeAction.action.Disable();
         focusAction.action.Disable();
+        dashAction.action.Disable();
     }
 
     void Update()
@@ -141,6 +149,12 @@ public class ThirdPersonController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed);
         }
 
+        if (dashAction.action.WasPressedThisFrame() && !isDashing && move != Vector3.zero)
+        {
+            dashDirection = moveDirection;
+            StartCoroutine(DashRoutine());
+        }
+
         // Jump
         //if (jumpAction.action.triggered && isPlayerGrounded)
         //{
@@ -150,9 +164,18 @@ public class ThirdPersonController : MonoBehaviour
         // Apply gravity
         playerVelocity.y += gravityValue * Time.deltaTime;
 
-        // Combine horizontal and vertical movement
-        Vector3 finalMove = (moveDirection * playerSpeed) + (playerVelocity.y * Vector3.up);
-        controller.Move(finalMove * Time.deltaTime);
+        if (!isDashing)
+        {
+            // Combine horizontal and vertical movement
+            Vector3 finalMove = (moveDirection * playerSpeed) + (playerVelocity.y * Vector3.up);
+            controller.Move(finalMove * Time.deltaTime);
+        }
+        else
+        {
+            Vector3 finalMove = (dashDirection * playerDashSpeed) + (playerVelocity.y * Vector3.up);
+            controller.Move(finalMove * Time.deltaTime);
+        }
+
 
         if (meleeAction.action.triggered)
         {
@@ -199,5 +222,12 @@ public class ThirdPersonController : MonoBehaviour
     {
         // Destory the player in here, reset the level, or whatever...
         Debug.Log("Player Died!");
+    }
+
+    IEnumerator DashRoutine()
+    {
+        isDashing = true;
+        yield return new WaitForSeconds(playerDashLength);
+        isDashing = false;
     }
 }
