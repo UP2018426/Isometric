@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +22,23 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI ammoText;
 
+    [SerializeField]
+    private int score;
+    public int Score
+    {
+        get
+        {
+            return score;
+        }
+        set
+        {
+            score = value;
+            UpdateScoreCounter();
+        }
+    }
+
+    public TextMeshProUGUI scoreText;
+
     private void Awake()
     {
         if(Instance != null)
@@ -37,6 +53,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UpdateAmmoCounter();
+        UpdateScoreCounter();
     }
 
     public void UpdateAmmoCounter()
@@ -48,5 +65,16 @@ public class GameManager : MonoBehaviour
         }
 
         ammoText.text = Ammunition.ToString();
+    }
+
+    public void UpdateScoreCounter()
+    {
+        if (scoreText == null)
+        {
+            Debug.LogWarning("Score counter TextMeshPro component has not been found. \nMake sure it has been assigned on the GameManager!");
+            return;
+        }
+
+        scoreText.text = Score.ToString();
     }
 }

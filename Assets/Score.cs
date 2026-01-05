@@ -39,7 +39,8 @@ public class Score : MonoBehaviour
 
     void CoinCollected()
     {
-        // Modify this as needed for future use with a score system
+        GameManager.Instance.Score++;
+
         Destroy(this.gameObject);
     }
 }
