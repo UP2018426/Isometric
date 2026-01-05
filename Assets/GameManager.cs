@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField]
+    [Header("Ammo"), SerializeField]
     private int ammunition;
     public int Ammunition
     {
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI ammoText;
 
-    [SerializeField]
+    [Header("Score"), SerializeField]
     private int score;
     public int Score
     {
@@ -39,6 +39,23 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
 
+    [Header("Health"), SerializeField]
+    private int health;
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+        set
+        {
+            health = value;
+            UpdateHealthCounter();
+        }
+    }
+
+    public TextMeshProUGUI healthText;
+
     private void Awake()
     {
         if(Instance != null)
@@ -54,6 +71,7 @@ public class GameManager : MonoBehaviour
     {
         UpdateAmmoCounter();
         UpdateScoreCounter();
+        UpdateHealthCounter();
     }
 
     public void UpdateAmmoCounter()
@@ -76,5 +94,16 @@ public class GameManager : MonoBehaviour
         }
 
         scoreText.text = Score.ToString();
+    }
+
+    public void UpdateHealthCounter()
+    {
+        if (healthText == null)
+        {
+            Debug.LogWarning("Score counter TextMeshPro component has not been found. \nMake sure it has been assigned on the GameManager!");
+            return;
+        }
+
+        healthText.text = Health.ToString();
     }
 }

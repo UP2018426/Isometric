@@ -22,8 +22,8 @@ public class ThirdPersonController : MonoBehaviour
     private CharacterController controller;
     private Vector3 playerVelocity;
 
-    [Header("Player Stats")]
-    [SerializeField] private int currentHealth;
+    //[Header("Player Stats")]
+    //[SerializeField] private int currentHealth;
 
     [Header("Input Actions")]
     public InputActionReference moveAction;
@@ -209,9 +209,9 @@ public class ThirdPersonController : MonoBehaviour
 
     public void TakeDamage(int damageTaken)
     {
-        currentHealth -= damageTaken;
+        GameManager.Instance.Health -= damageTaken;
 
-        if (currentHealth <= 0)
+        if (GameManager.Instance.Health <= 0)
         {
             Death();
         }
