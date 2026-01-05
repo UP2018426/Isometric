@@ -6,8 +6,7 @@ using UnityEngine.InputSystem;
 public class ThirdPersonController : MonoBehaviour
 {
     [Header("Player Controls")]
-    [Range(0.01f, 0.1f)]
-    public float rotationSpeed = 0.06f;
+    private float rotationSpeed = 15f;
 
     public float playerSpeed = 5.0f;
     [SerializeField] bool isDashing;
@@ -141,12 +140,12 @@ public class ThirdPersonController : MonoBehaviour
             lookDirection.y = 0f;
 
             Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
         else if (move != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
         if (dashAction.action.WasPressedThisFrame() && !isDashing && move != Vector3.zero)
