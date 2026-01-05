@@ -21,19 +21,40 @@ public class Shooting : MonoBehaviour
     {
         if (shootAction.action.WasPressedThisFrame())
         {
-            GameObject shootingProjectile = Instantiate(projectile, shootingPoint.position, Quaternion.identity);
-
-            Rigidbody projectileRigidbody = shootingProjectile.GetComponent<Rigidbody>();
-
-            if (tpsController.targetObject != null)
-            {
-                projectileRigidbody.AddForce((tpsController.targetObject.position - shootingPoint.position).normalized * shootForce, ForceMode.Impulse);
-            }   
-            else
-            {
-                projectileRigidbody.AddForce(shootingPoint.forward * shootForce, ForceMode.Impulse);
-            }
+            Shoot();
         }
+    }
+
+    private void Shoot()
+    {
+        if(CanShoot() == false)
+        {
+            return;
+        }
+
+        GameObject shootingProjectile = Instantiate(projectile, shootingPoint.position, Quaternion.identity);
+
+        Rigidbody projectileRigidbody = shootingProjectile.GetComponent<Rigidbody>();
+
+        if (tpsController.targetObject != null)
+        {
+            projectileRigidbody.AddForce((tpsController.targetObject.position - shootingPoint.position).normalized * shootForce, ForceMode.Impulse);
+        }
+        else
+        {
+            projectileRigidbody.AddForce(shootingPoint.forward * shootForce, ForceMode.Impulse);
+        }
+
+        GameManager.Instance.Ammunition--;
+    }
+
+    private bool CanShoot()
+    {
+        if(GameManager.Instance.Ammunition > 0)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void OnEnable()
