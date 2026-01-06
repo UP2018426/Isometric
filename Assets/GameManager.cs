@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -56,6 +57,8 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI healthText;
 
+    private List<Key> collectedKeysList = new List<Key>();
+
     private void Awake()
     {
         if(Instance != null)
@@ -72,9 +75,11 @@ public class GameManager : MonoBehaviour
         UpdateAmmoCounter();
         UpdateScoreCounter();
         UpdateHealthCounter();
+        
+        
     }
 
-    public void UpdateAmmoCounter()
+    private void UpdateAmmoCounter()
     {
         if(ammoText == null)
         {
@@ -85,7 +90,7 @@ public class GameManager : MonoBehaviour
         ammoText.text = Ammunition.ToString();
     }
 
-    public void UpdateScoreCounter()
+    private void UpdateScoreCounter()
     {
         if (scoreText == null)
         {
@@ -96,7 +101,7 @@ public class GameManager : MonoBehaviour
         scoreText.text = Score.ToString();
     }
 
-    public void UpdateHealthCounter()
+    private void UpdateHealthCounter()
     {
         if (healthText == null)
         {
@@ -105,5 +110,20 @@ public class GameManager : MonoBehaviour
         }
 
         healthText.text = Health.ToString();
+    }
+
+    public void CollectKey(Key keyToAdd)
+    {
+        collectedKeysList.Add(keyToAdd);
+    }
+
+    public bool ContainsKey(Key keyToCheck)
+    {
+        if (collectedKeysList.Contains(keyToCheck))
+        {
+            return true;
+        }
+
+        return false;
     }
 }
