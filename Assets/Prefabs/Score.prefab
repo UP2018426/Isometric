@@ -102,4 +102,4 @@ MonoBehaviour:
   scoreValue: 1
   magnetDistance: 4
   collectionDistance: 0.1
-  collectionSpeed: 0.2
+  collectionSpeed: 0.03
