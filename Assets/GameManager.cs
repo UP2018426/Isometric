@@ -61,11 +61,11 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI healthText;
 
-    // Keys
-    [Header("ItemCollection"), SerializeField] private float maxKeyCollectionDistance;
+    // InteractableItems
+    [Header("ItemCollection"), SerializeField] private float maxInteractionDistance;
     [SerializeField] private GameObject callToAction;
 
-    [SerializeField] private Key[] keysInSceneList;
+    [SerializeField] private InteractableItem[] interactableItemsInSceneList; // TODO: Remove [SerializeField]
     private List<Key> collectedKeysList = new List<Key>();
 
     [Header("Input Actions")]
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
         UpdateAmmoCounter();
         UpdateScoreCounter();
         UpdateHealthCounter();
-        FindAllKeysInCurrentScene();
+        FindAllInteractablesInCurrentScene();
         FindPlayer();
 
         SceneManager.activeSceneChanged += OnSceneChanged;
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        KeyUpdate();
+        CallToActionUpdate();
     }
 
     private void UpdateAmmoCounter()
@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
     private void OnSceneChanged(Scene oldScene, Scene newScene)
     {
         FindPlayer();
-        FindAllKeysInCurrentScene();
+        FindAllInteractablesInCurrentScene();
     }
 
     private void FindPlayer()
@@ -152,56 +152,66 @@ public class GameManager : MonoBehaviour
         playerTransform = FindAnyObjectByType<ThirdPersonController>().gameObject.transform;
     }
 
-    private void FindAllKeysInCurrentScene()
+    private void FindAllInteractablesInCurrentScene()
     {
         // Find all keys in the scene
-        keysInSceneList = (Key[])GameObject.FindObjectsByType(typeof (Key), FindObjectsSortMode.None);
+        interactableItemsInSceneList = (InteractableItem[])GameObject.FindObjectsByType(typeof (InteractableItem), FindObjectsSortMode.None);
     }
 
-    private Key FindClosestKey()
+    private InteractableItem FindClosestInteractable()
     {
-        if (keysInSceneList.Length <= 0)
+        if (interactableItemsInSceneList.Length <= 0)
         {
-            Debug.Log("No Keys can be found in scene");
+            Debug.Log("No Interactable can be found in scene");
             return null;
         }
 
         float closestDistance = float.MaxValue;
         int closestIndex = 0;
 
-        for (int i = 0; i < keysInSceneList.Length; i++)
+        for (int i = 0; i < interactableItemsInSceneList.Length; i++)
         {
-            float distanceToKey = (keysInSceneList[i].transform.position - playerTransform.transform.position).magnitude;
-            if (distanceToKey < closestDistance)
+            float distanceToInteractable = (interactableItemsInSceneList[i].transform.position - playerTransform.transform.position).magnitude;
+            if (distanceToInteractable < closestDistance)
             {
-                closestDistance = distanceToKey;
+                closestDistance = distanceToInteractable;
                 closestIndex = i;
             }
         }
 
-        return keysInSceneList[closestIndex];
+        return interactableItemsInSceneList[closestIndex];
     }
 
-    private void KeyUpdate()
+    private void CallToActionUpdate()
     {
-        Key closestKey = FindClosestKey();
-        if (closestKey == null)
+        InteractableItem closestInteractableItem = FindClosestInteractable();
+        if (closestInteractableItem == null)
         {
             return;
         }
 
-        float distanceToClosestKey = (closestKey.transform.position - playerTransform.transform.position).magnitude;
-        if (distanceToClosestKey < maxKeyCollectionDistance)
+        float distanceToClosestInteractableItem = (closestInteractableItem.transform.position - playerTransform.transform.position).magnitude;
+        if (distanceToClosestInteractableItem < maxInteractionDistance)
         {
             // Show CTA
             callToAction.SetActive(true);
 
             // Update the position of the CTA to make sure that it shows on the collectible item.
-            callToAction.transform.position = closestKey.transform.position;
+            callToAction.transform.position = closestInteractableItem.transform.position;
 
             if (interactAction.action.WasPressedThisFrame())
             {
-                CollectKey(closestKey);
+                if (closestInteractableItem.GetType() == typeof(Key)) // If the closestInteractableItem is a Key...
+                {
+                    CollectKey((Key)closestInteractableItem);
+                    FindAllInteractablesInCurrentScene(); // We update the interactable objects in the scene to make sure there isnt a null object in the array
+                }
+                else if (closestInteractableItem.GetType() == typeof(Door))
+                {
+                    Door myDoor = (Door)closestInteractableItem;
+                    myDoor.OpenDoor();
+                    FindAllInteractablesInCurrentScene(); // We update the interactable objects in the scene to make sure there isnt a null object in the array
+                }
             }
         }
         else
@@ -215,9 +225,7 @@ public class GameManager : MonoBehaviour
     {
         collectedKeysList.Add(keyToAdd);
 
-        Destroy(keyToAdd.gameObject);
-
-        FindAllKeysInCurrentScene(); // We update the keys in the scene to make sure there isnt a null object in the array
+        DestroyImmediate(keyToAdd.gameObject);
     }
 
     public bool ContainsKey(Key keyToCheck)

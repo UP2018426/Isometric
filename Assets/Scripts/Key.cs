@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Key : MonoBehaviour
+public class Key : InteractableItem
 {
     /*public void KeyCollected()
     {
