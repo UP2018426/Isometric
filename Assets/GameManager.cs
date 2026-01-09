@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 
     // InteractableItems
     [Header("ItemCollection"), SerializeField] private float maxInteractionDistance;
-    [SerializeField] private GameObject callToAction;
+    [SerializeField] private RectTransform callToAction;
 
     [SerializeField] private InteractableItem[] interactableItemsInSceneList; // TODO: Remove [SerializeField]
     private List<Key> collectedKeysList = new List<Key>();
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
         interactAction.action.Disable();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         CallToActionUpdate();
     }
@@ -163,6 +163,10 @@ public class GameManager : MonoBehaviour
         if (interactableItemsInSceneList.Length <= 0)
         {
             Debug.Log("No Interactable can be found in scene");
+            
+            // Hide the CTA
+            callToAction.gameObject.SetActive(false);
+            
             return null;
         }
 
@@ -194,10 +198,13 @@ public class GameManager : MonoBehaviour
         if (distanceToClosestInteractableItem < maxInteractionDistance)
         {
             // Show CTA
-            callToAction.SetActive(true);
+            callToAction.gameObject.SetActive(true);
 
             // Update the position of the CTA to make sure that it shows on the collectible item.
-            callToAction.transform.position = closestInteractableItem.transform.position;
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(closestInteractableItem.transform.position);
+            callToAction.position = screenPosition;
+            
+            //callToAction.transform.position = closestInteractableItem.transform.position;
 
             if (interactAction.action.WasPressedThisFrame())
             {
@@ -217,7 +224,7 @@ public class GameManager : MonoBehaviour
         else
         {
             // Hide the CTA
-            callToAction.SetActive(false);
+            callToAction.gameObject.SetActive(false);
         }
     }
 

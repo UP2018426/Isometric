@@ -50,3 +50,7 @@ MonoBehaviour:
   scoreText: {fileID: 0}
   health: 10
   healthText: {fileID: 0}
+  maxInteractionDistance: 2
+  callToAction: {fileID: 0}
+  interactableItemsInSceneList: []
+  interactAction: {fileID: 0}
