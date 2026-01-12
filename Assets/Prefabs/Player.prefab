@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 3643573671422957058, guid: 4368b4a7b15cc4d41ac93459c8c864d0, type: 3}
-  shootingParticleEffect: {fileID: 0}
+  shootingParticleEffect: {fileID: 7598727870355238762, guid: 5e049cd7da954874e9e0db1d46804cb9, type: 3}
   shootingPoint: {fileID: 6878236211306767256}
   shootForce: 25
   shootAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}

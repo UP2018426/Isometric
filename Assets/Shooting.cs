@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class Shooting : MonoBehaviour
 {
     [SerializeField] GameObject projectile;
+    [SerializeField] GameObject shootingParticleEffect;
     [SerializeField] Transform shootingPoint;
     private ThirdPersonController tpsController;
 
@@ -33,6 +34,11 @@ public class Shooting : MonoBehaviour
         }
 
         GameObject shootingProjectile = Instantiate(projectile, shootingPoint.position, Quaternion.identity);
+
+        if (shootingParticleEffect != null)
+        {
+            Instantiate(shootingParticleEffect, shootingPoint.position, shootingPoint.rotation);
+        }
 
         Rigidbody projectileRigidbody = shootingProjectile.GetComponent<Rigidbody>();
 
