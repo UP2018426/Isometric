@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class ThirdPersonController : MonoBehaviour
@@ -17,6 +18,10 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private float gravityValue = Physics.gravity.y;
 
     private bool isPlayerGrounded;
+
+    [SerializeField] float enemyViewDistance = 7f;
+
+    [SerializeField] RectTransform enemyCallToAction;
 
     public Transform cameraTransform;
     private CharacterController controller;
@@ -115,27 +120,85 @@ public class ThirdPersonController : MonoBehaviour
         moveDirection.y = 0f; // Ignore Y-Axis
         moveDirection.Normalize();
 
+        UpdateEnemyFocusUI();
+
+        UpdatePlayerRotation(move, moveDirection);
+
+        UpdatePlayerMovement(move, moveDirection);
+
+        if (meleeAction.action.triggered)
+        {
+            melee.OnAttackBegin();
+        }
+    }
+
+    Transform FindNearestEnemyInRange()
+    {
+        // Find all enemies
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        
+        if (enemies.Length <= 0)
+        {
+            Debug.LogWarning("There are no enemies!");
+            return null;
+        }
+        float closestDistance = Mathf.Infinity;
+        Transform closestTransform = null;
+
+        foreach (GameObject enemy in enemies)
+        {
+            if ((enemy.transform.position - transform.position).magnitude < closestDistance)
+            {
+                closestDistance = (enemy.transform.position - transform.position).magnitude;
+                closestTransform = enemy.transform;
+            }
+        }
+
+        if (closestDistance > enemyViewDistance)
+        {
+            // There are no enemies in range
+            return null;
+        }
+
+        return closestTransform;
+    }
+
+    public void TakeDamage(int damageTaken)
+    {
+        GameManager.Instance.Health -= damageTaken;
+
+        if (GameManager.Instance.Health <= 0)
+        {
+            Death();
+        }
+    }
+
+    void Death()
+    {
+        // Destory the player in here, reset the level, or whatever...
+        Debug.Log("Player Died!");
+    }
+
+    void UpdatePlayerRotation(Vector3 move, Vector3 moveDirection)
+    {
+        Transform nearestEnemy = FindNearestEnemyInRange();
+
         if (focusAction.action.WasPressedThisFrame())
         {
-            targetObject = FindNearestEnemy();
+            targetObject = nearestEnemy;
         }
         else if (focusAction.action.WasReleasedThisFrame())
         {
             targetObject = null;
         }
 
-        if(focusAction.action.inProgress && targetObject == null)
+        if (focusAction.action.inProgress && targetObject == null)
         {
-            targetObject = FindNearestEnemy();
+            targetObject = nearestEnemy;
         }
 
         if (focusAction.action.inProgress && targetObject != null)
         {
-            if (targetObject == null)
-            {
-                targetObject = FindNearestEnemy();
-            }
-
             Vector3 lookDirection = targetObject.position - transform.position;
             lookDirection.y = 0f;
 
@@ -147,7 +210,11 @@ public class ThirdPersonController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+    }
 
+    void UpdatePlayerMovement(Vector3 move, Vector3 moveDirection)
+    {
+        // Dashing
         if (dashAction.action.WasPressedThisFrame() && !isDashing && move != Vector3.zero)
         {
             dashDirection = moveDirection;
@@ -174,53 +241,41 @@ public class ThirdPersonController : MonoBehaviour
             Vector3 finalMove = (dashDirection * playerDashSpeed) + (playerVelocity.y * Vector3.up);
             controller.Move(finalMove * Time.deltaTime);
         }
-
-
-        if (meleeAction.action.triggered)
-        {
-            melee.OnAttackBegin();
-        }
     }
 
-    Transform FindNearestEnemy()
+    void UpdateEnemyFocusUI()
     {
-        // Find all enemies
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        
-        if (enemies.Length <= 0)
-        {
-            Debug.LogWarning("There are no enemies!");
-            return null;
-        }
-        float closestDistance = Mathf.Infinity;
-        Transform closestTransform = null;
+        Transform nearestEnemy = FindNearestEnemyInRange();
 
-        foreach (GameObject enemy in enemies)
+        if (nearestEnemy == null)
         {
-            if ((enemy.transform.position - transform.position).magnitude < closestDistance)
+            enemyCallToAction.gameObject.SetActive(false);
+            return;
+        }
+
+        // if enemy is closer than XYZ >>> 
+        if ((nearestEnemy.transform.position - transform.position).magnitude < enemyViewDistance)
+        {
+            // Show CTA
+            enemyCallToAction.gameObject.SetActive(true);
+
+            if (targetObject != null)
             {
-                closestDistance = (enemy.transform.position - transform.position).magnitude;
-                closestTransform = enemy.transform;
+                // Update the position of the CTA to make sure that it shows on the enemy.
+                Vector3 screenPosition = Camera.main.WorldToScreenPoint(targetObject.transform.position);
+                enemyCallToAction.position = screenPosition;
+            }
+            else
+            {
+                // Update the position of the CTA to make sure that it shows on the enemy.
+                Vector3 screenPosition = Camera.main.WorldToScreenPoint(nearestEnemy.transform.position);
+                enemyCallToAction.position = screenPosition;
             }
         }
-
-        return closestTransform;
-    }
-
-    public void TakeDamage(int damageTaken)
-    {
-        GameManager.Instance.Health -= damageTaken;
-
-        if (GameManager.Instance.Health <= 0)
+        else
         {
-            Death();
+            enemyCallToAction.gameObject.SetActive(false);
         }
-    }
-
-    void Death()
-    {
-        // Destory the player in here, reset the level, or whatever...
-        Debug.Log("Player Died!");
     }
 
     IEnumerator DashRoutine()
