@@ -258,7 +258,7 @@ MonoBehaviour:
   jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   meleeAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   focusAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  dashAction: {fileID: -416885939997619757, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  dashAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   meleeItem: {fileID: 5801545079728702251}
   meleeSpeed: 4.15
   targetObject: {fileID: 0}
@@ -274,11 +274,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11f9b5c599ec0c64f98d42db71e1e9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootingInterval: 1
   projectile: {fileID: 3643573671422957058, guid: 4368b4a7b15cc4d41ac93459c8c864d0, type: 3}
   shootingParticleEffect: {fileID: 7598727870355238762, guid: 5e049cd7da954874e9e0db1d46804cb9, type: 3}
   shootingPoint: {fileID: 6878236211306767256}
-  shootForce: 25
-  shootAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  shootForce: 17
+  shootAction: {fileID: -5822268491802914545, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &4818763845997832301
 GameObject:
   m_ObjectHideFlags: 0
