@@ -102,12 +102,14 @@ public class ThirdPersonController : MonoBehaviour
         dashAction.action.Disable();
     }
 
+    public float downwardForce = -2f;
+
     void Update()
     {
         isPlayerGrounded = controller.isGrounded;
         if (isPlayerGrounded && playerVelocity.y < 0)
         {
-            playerVelocity.y = 0f;
+            playerVelocity.y = downwardForce;
         }
 
         // Read input
