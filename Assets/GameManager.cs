@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -82,8 +83,12 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+    public Slider healthSlider;
+
     private void Start()
     {
+        healthSlider.maxValue = Health;
+
         UpdateAmmoCounter();
         UpdateScoreCounter();
         UpdateHealthCounter();
@@ -132,13 +137,16 @@ public class GameManager : MonoBehaviour
 
     private void UpdateHealthCounter()
     {
+        healthSlider.value = Health;
+        
         if (healthText == null)
         {
             Debug.LogWarning("Score counter TextMeshPro component has not been found. \nMake sure it has been assigned on the GameManager!");
             return;
         }
-
         healthText.text = Health.ToString();
+
+
     }
 
     private void OnSceneChanged(Scene oldScene, Scene newScene)
